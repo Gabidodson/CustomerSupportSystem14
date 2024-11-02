@@ -33,11 +33,15 @@ function displayTickets(tickets){
 }
 async function initializeTicketSystem() {
     try{
+        loadingIndicator.style.display='block';
         const tickets = await fetchTickets();
         displayTickets(tickets);
     }catch (error){
         console.error('Error starting ticket system:',error);
+    }finally{
+        loadingIndicator.style.display ='none';
     }
     
 }
 initializeTicketSystem();
+
