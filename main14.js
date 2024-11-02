@@ -13,6 +13,7 @@ async function fetchTickets () {
     }catch (error){
         const errorContainer = document.getElementById('error-container');
         errorContainer.textContent=error.message ||'Failed to get tickets';
+    throw error;
     }
 }
 
@@ -24,7 +25,7 @@ function displayTickets(tickets){
         ticketElement.className = 'ticket';
         ticketElement.innerHTML =`
         <h3>Ticket #${ticket.id}</h3>
-        <p><strong>Customer ID:</strong> ${ticket.userID}</p>
+        <p><strong>Customer ID:</strong> ${ticket.userId}</p>
         <p><strong>Issue:</strong>${ticket.title}</p>
         <p><strong>Details:</strong> ${ticket.body}</p>
         `;
@@ -32,6 +33,7 @@ function displayTickets(tickets){
     });
 }
 async function initializeTicketSystem() {
+    const loadingIndicator = document.getElementById('loading');
     try{
         loadingIndicator.style.display='block';
         const tickets = await fetchTickets();
